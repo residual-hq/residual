@@ -1,0 +1,20 @@
+{
+  "name": "@residualhq/workspace",
+  "private": true,
+  "description": "Residual: orchestration-layer token saving. Don't pay to reread what your agent already knows.",
+  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "test": "npm run build && npm run test --workspaces --if-present"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@types/node": "^24.9.2",
+    "typescript": "^5.9.3"
+  }
+}

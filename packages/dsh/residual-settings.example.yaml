@@ -1,0 +1,15 @@
+# Copy to $DSH_HOME/residual-settings.yaml (usually ~/.dsh/residual-settings.yaml).
+# This is a partial document: keys you omit keep the mount-row / composition values,
+# so a small edit cannot wipe model-specific policies.
+residual:
+  default:
+    threshold: 0.8
+    retain: 0.16
+  # providers:
+  #   deepseek:
+  #     threshold: 0.5
+  # models:
+  #   - provider: deepseek
+  #     model: deepseek-chat
+  #     thresholdTokens: 80000
+  #     retainTokens: 16000

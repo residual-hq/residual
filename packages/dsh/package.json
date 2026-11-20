@@ -1,0 +1,59 @@
+{
+  "name": "@residualhq/dsh",
+  "version": "0.0.1",
+  "description": "Residual DeepSeek Harness plugin: layered compaction policy, local savings ledger, append-only tool gate.",
+  "type": "module",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./engine": "./dist/engine.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "cordis.patch.yml",
+    "residual-settings.example.yaml",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "node --test --experimental-strip-types test/*.test.ts"
+  },
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "compaction",
+    "token-savings"
+  ],
+  "dependencies": {
+    "@residualhq/core": "0.0.1"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/dsh-compaction-basic": ">=0.2.2-0 <0.3.0-0",
+    "@deepseek-ai/schemastery": ">=3.18.0"
+  },
+  "peerDependenciesMeta": {
+    "@deepseek-ai/dsh-compaction-basic": {
+      "optional": true
+    },
+    "@deepseek-ai/schemastery": {
+      "optional": true
+    }
+  },
+  "dsh": {
+    "manifestVersion": 1,
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "engines": {
+    "node": ">=20",
+    "dsh": ">=0.2.2-0 <0.3.0-0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

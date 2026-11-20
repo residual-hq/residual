@@ -1,0 +1,51 @@
+# Residual bundle for DeepSeek Harness.
+#
+# Residual subclasses official BasicCompactionEngine. Region selection,
+# tool-pairing balance, summary framing, and the durable compaction
+# transaction stay official. This layer only adds Residual's policy,
+# local savings ledger, and an optional append-only tool gate.
+#
+# ctx.compaction is a single-slot seam: enabling residual-engine means
+# the stock compaction-basic row must be disabled in the same profile.
+# This bundle does not do that for you, and ships residual-engine disabled.
+# Superseding the stock engine is a deployment decision — a bundle that
+# turned itself on without also disabling compaction-basic would run two
+# engines; disabling the stock engine without a replacement would leave
+# none. Enable both changes in the same patch:
+#
+#   - id: compaction-basic
+#     disabled: true
+#
+#   - id: residual-engine
+#     disabled: false
+#     config:
+#       default:
+#         threshold: 0.8
+#         retain: 0.16
+#       providers:
+#         deepseek:
+#           threshold: 0.5
+#       models:
+#         - provider: deepseek
+#           model: deepseek-chat
+#           threshold: 0.9
+#
+# Policy can also live in $DSH_HOME/residual-settings.yaml (partial
+# document; omitted layers keep this mount config). That file is polled
+# so edits apply without a restart.
+#
+# The companion row is a separate, enabled, host-plane row. It does not
+# claim ctx.compaction. name is the bare package, which resolves to the
+# companion entry — never the engine.
+- insert:
+    - id: residual-engine
+      name: '@residualhq/dsh/engine'
+      disabled: true
+
+- insert:
+    - id: residual-settings
+      name: '@residualhq/dsh'
+      config:
+        default:
+          threshold: 0.8
+          retain: 0.16
